@@ -2504,8 +2504,12 @@ var render = function render() {
       _c = _vm._self._c;
 
   return _c("div", {
-    staticClass: "card mb-3"
-  }, [_c("h3", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.post.content))])]);
+    staticClass: "card mb-3 p-3"
+  }, [_c("h3", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.post.content))]), _vm._v(" "), _vm.post.category ? _c("div", [_c("p", [_vm._v("Categoria : " + _vm._s(_vm.post.category.name))])]) : _vm._e(), _vm._v(" "), _vm.post.tags.length > 1 ? _c("div", [_c("span", [_vm._v("Tags :")]), _vm._v(" "), _vm._l(_vm.post.tags, function (tag) {
+    return _c("span", {
+      staticClass: "mr-2 badge bg-success"
+    }, [_vm._v(_vm._s(tag.name))]);
+  })], 2) : _vm._e()]);
 };
 
 var staticRenderFns = [];
@@ -18951,7 +18955,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/stefanocravotta/LARAVEL/laravel-api/resources/js/front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! /Users/stefanocravotta/LARAVEL/laravel-boolpress/resources/js/front.js */"./resources/js/front.js");
 
 
 /***/ })

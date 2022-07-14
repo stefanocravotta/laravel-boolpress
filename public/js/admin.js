@@ -49300,9 +49300,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/stefanocravotta/LARAVEL/laravel-api/resources/js/admin.js */"./resources/js/admin.js");
-__webpack_require__(/*! /Users/stefanocravotta/LARAVEL/laravel-api/resources/sass/front/style.scss */"./resources/sass/front/style.scss");
-module.exports = __webpack_require__(/*! /Users/stefanocravotta/LARAVEL/laravel-api/resources/sass/admin/style.scss */"./resources/sass/admin/style.scss");
+__webpack_require__(/*! /Users/stefanocravotta/LARAVEL/laravel-boolpress/resources/js/admin.js */"./resources/js/admin.js");
+__webpack_require__(/*! /Users/stefanocravotta/LARAVEL/laravel-boolpress/resources/sass/front/style.scss */"./resources/sass/front/style.scss");
+module.exports = __webpack_require__(/*! /Users/stefanocravotta/LARAVEL/laravel-boolpress/resources/sass/admin/style.scss */"./resources/sass/admin/style.scss");
 
 
 /***/ })

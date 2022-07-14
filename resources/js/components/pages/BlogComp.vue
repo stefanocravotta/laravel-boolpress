@@ -71,6 +71,7 @@ import LoaderComp from '../partials/LoaderComp.vue'
                     }
                 if(this.posts.length > 1) this.isLoading = false;
 
+
             });
         }
     },
