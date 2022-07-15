@@ -1,7 +1,9 @@
 <template>
     <div class="card mb-3 p-3">
 
-        <h3>{{post.title}}</h3>
+        <h3>
+            <router-link :to="{name: 'detail', params: {slug: post.slug}}">{{post.title}}</router-link>
+        </h3>
         <p>{{post.content}}</p>
 
         <div v-if="post.category">

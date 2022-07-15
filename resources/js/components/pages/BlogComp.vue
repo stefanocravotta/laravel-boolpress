@@ -1,8 +1,10 @@
 <template>
     <div class="container">
-        <div v-if="isLoading" class="d-flex justify-content-center ">
+
+        <div v-if="!posts" class="d-flex justify-content-center ">
             <LoaderComp/>
         </div>
+
         <div v-else>
             <h1>I miei post</h1>
             <PostItem
@@ -16,6 +18,7 @@
              :pagination="pagination"
              />
         </div>
+
     </div>
 </template>
 
@@ -24,12 +27,13 @@ import Axios from 'axios'
 import PostItem from '../partials/PostItem.vue'
 import PaginationComp from '../partials/PaginationComp.vue'
 import LoaderComp from '../partials/LoaderComp.vue'
+import { apiUrl } from '../../data/config'
 
     export default {
     name: "BlogComp",
     data() {
         return {
-            apiUrl: "/api/posts/?page=",
+            apiUrl,
             posts: null,
             pagination: {
                 current:null,
@@ -39,7 +43,8 @@ import LoaderComp from '../partials/LoaderComp.vue'
                 lastUrl:null,
                 firstUrl:null
             },
-            isLoading: true
+            categories: [],
+            tags: []
         };
     },
     mounted() {
@@ -47,32 +52,34 @@ import LoaderComp from '../partials/LoaderComp.vue'
     },
     methods: {
         getApi(page) {
-            Axios.get(this.apiUrl +  page)
+            this.posts = null;
+            Axios.get(this.apiUrl + '/' + '?page=' + page)
                 .then(r => {
-                this.posts = r.data.data;
+                this.posts = r.data.posts.data;
                 this.pagination = {
-                    current: r.data.current_page,
-                    last: r.data.last_page,
-                    nextUrl: r.data.next_page_url,
-                    prevUrl: r.data.prev_page_url,
+                    current: r.data.posts.current_page,
+                    last: r.data.posts.last_page,
+                    nextUrl: r.data.posts.next_page_url,
+                    prevUrl: r.data.posts.prev_page_url,
                     }
-                if(this.posts.length > 1) this.isLoading = false;
+                this.categories = r.data.categories;
+                this.tags = r.data.tags;
             });
         },
         getApiUrlPages(apiUrlPages) {
+            this.posts = null;
             Axios.get(apiUrlPages)
                 .then(r => {
-                this.posts = r.data.data;
+                this.posts = r.data.posts.data;
                 this.pagination = {
-                    current: r.data.current_page,
-                    last: r.data.last_page,
-                    nextUrl: r.data.next_page_url,
-                    prevUrl: r.data.prev_page_url,
+                    current: r.data.posts.current_page,
+                    last: r.data.posts.last_page,
+                    nextUrl: r.data.posts.next_page_url,
+                    prevUrl: r.data.posts.prev_page_url,
                     }
-                if(this.posts.length > 1) this.isLoading = false;
-
-
-            });
+                this.categories = r.data.categories;
+                this.tags = r.data.tags;
+            })
         }
     },
     components: { PostItem, PaginationComp, LoaderComp }
