@@ -1,7 +1,14 @@
 <template>
-    <div class="container text-center">
-        <h1>{{post.title}}</h1>
-        <p>{{post.content}}</p>
+    <div class="container py-5 text-center sc-card">
+        <h1 class="py-2">{{post.title}}</h1>
+        <div v-if="post.immagine">
+            <img :src="post.immagine" alt="">
+        </div>
+        <div v-else>
+            <img class="img-fluid" src="../../../../public/image/_DSC4314-65.jpg" alt="">
+        </div>
+        <p class="py-2">{{post.content}}</p>
+        <button class="btn btn-dark"><router-link class="text-reset" :to="{name: 'blog'}"><< Torna ai post</router-link></button>
     </div>
 </template>
 
@@ -36,5 +43,10 @@ import { apiUrl } from '../../data/config'
 </script>
 
 <style lang="scss" scoped>
-
+.sc-card{
+    width: calc(100% / 3);
+    img{
+        border-radius: 20px;
+    }
+}
 </style>

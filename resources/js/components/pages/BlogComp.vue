@@ -1,23 +1,32 @@
 <template>
-    <div class="container">
+    <div class="container" >
 
         <div v-if="!posts" class="d-flex justify-content-center ">
             <LoaderComp/>
         </div>
 
-        <div v-else>
-            <h1>I miei post</h1>
+        <div class="py-3 d-flex flex-column align-items-center" v-else>
+            <h1 class="text-center py-3">I miei post {{searchType}}</h1>
+            <div class="d-flex justify-content-center flex-wrap">
             <PostItem
             v-for="post in posts"
             :key="post.id"
             :post="post"
              />
+            </div>
              <PaginationComp
              @getApi="getApi"
              @getApiUrlPages="getApiUrlPages"
              :pagination="pagination"
+             class="py-5"
              />
         </div>
+        <SideBarComp
+        :categories="categories"
+        :tags="tags"
+        @searchPostsByCategory="searchPostsByCategory"
+        />
+
 
     </div>
 </template>
@@ -28,6 +37,7 @@ import PostItem from '../partials/PostItem.vue'
 import PaginationComp from '../partials/PaginationComp.vue'
 import LoaderComp from '../partials/LoaderComp.vue'
 import { apiUrl } from '../../data/config'
+import SideBarComp from '../partials/SideBarComp.vue'
 
     export default {
     name: "BlogComp",
@@ -44,7 +54,8 @@ import { apiUrl } from '../../data/config'
                 firstUrl:null
             },
             categories: [],
-            tags: []
+            tags: [],
+            searchType: ''
         };
     },
     mounted() {
@@ -53,6 +64,7 @@ import { apiUrl } from '../../data/config'
     methods: {
         getApi(page) {
             this.posts = null;
+            this.searchType = '';
             Axios.get(this.apiUrl + '/' + '?page=' + page)
                 .then(r => {
                 this.posts = r.data.posts.data;
@@ -80,9 +92,26 @@ import { apiUrl } from '../../data/config'
                 this.categories = r.data.categories;
                 this.tags = r.data.tags;
             })
-        }
+        },
+        searchPostsByCategory(slug_category){
+            Axios.get(this.apiUrl + '/post-category/' + slug_category)
+            .then(r => {
+                this.posts = r.data.posts
+                this.searchType = r.data.name;
+            })
+        },
+        /* searchPostsByTag(slug_tag){
+            Axios.get(this.apiUrl + '/post-tag/' + slug_tag)
+            .then(r => {
+                this.posts = r.data.posts
+                this.searchType = r.data.name;
+            })
+            .catch(e =>{
+                console.log(e);
+            })
+        } */
     },
-    components: { PostItem, PaginationComp, LoaderComp }
+    components: { PostItem, PaginationComp, LoaderComp, SideBarComp }
 }
 </script>
 
